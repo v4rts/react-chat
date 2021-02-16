@@ -1,12 +1,11 @@
-import io from "socket.io-client";
+import socket from "./socket";
 import React from 'react';
+import Start from "./comp/Start";
 
-const socket = io('http://localhost:8888')
-
-function App() {
+let App = () => {
   return (
-    <div className="App">
-        <h1>Ku</h1>
+    <div>
+        <Start/>
     </div>
   );
 }
