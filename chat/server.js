@@ -15,6 +15,8 @@ const io = require('socket.io')(server,{
 
 }); /* add socket to server */
 
+app.use(express.json());
+
 const rooms = new Map();
 
 app.get('/rooms', (req, res) => {
@@ -22,7 +24,8 @@ app.get('/rooms', (req, res) => {
 });
 
 app.post('/rooms', (req, res) => {
-    console.log("hello world");
+    console.log(req.body);
+    if (!rooms.has()) res.send();
 })
 
 io.on('connection', socket => { /* Connection testing */

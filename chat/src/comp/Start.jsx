@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import socket from "../socket";
+import axios from 'axios';
 
 let Start = () => {
 
@@ -8,10 +9,9 @@ let Start = () => {
 
     const onGo = () => {
         if (!roomID || !userName){
-            alert("Required fields are missing")
+            return alert("Required fields are missing");
         }
-        console.log(roomID);
-        console.log(userName);
+        axios.post('/rooms', {roomID, userName});
     }
 
     return (
