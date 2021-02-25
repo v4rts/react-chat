@@ -7,14 +7,16 @@ let Start = ({onLogin}) => {
 
     const [roomID, setRoomID] = useState('');
     const [userName, setUserName] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
-    const onGo = () => {
+    const onGo = async () => {
         if (!roomID || !userName){
             return alert("Required fields are missing");
         }
-        axios.post('/rooms', {roomID, userName}).then(()=>{
-            onLogin();
-        })
+        setLoading(true);
+
+        await axios.post('/rooms', {roomID, userName});
+        onLogin();
     }
 
     return (
@@ -26,7 +28,7 @@ let Start = ({onLogin}) => {
         <div className={styles.login__form}>
             <input className={styles.input} type="text" placeholder="Room" value={roomID} onChange={(e) => setRoomID(e.target.value)}/>
             <input className={styles.input} type="text" placeholder="User" value={userName} onChange={(e) => setUserName(e.target.value)}/>
-            <button className={styles.button} onClick={onGo}>Login</button>
+            <button className={styles.button} onClick={onGo}>{isLoading ? 'Login': 'Pls wait'}</button>
         </div>
     </div>
     );

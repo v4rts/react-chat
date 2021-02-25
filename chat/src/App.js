@@ -17,9 +17,9 @@ let App = () => {
 
   console.log(state);
 
-  return (
+  return ( /* get login form if not authenticated */
     <div>
-        <Start onLogin={onLogin}/>
+        {!state.isAuth && <Start onLogin={onLogin}/>}
     </div>
   );
 }
