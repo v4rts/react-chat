@@ -15,7 +15,7 @@ const io = require('socket.io')(server,{
 
 }); /* add socket to server */
 
-app.use(express.json());
+app.use(express.json()); /* to accept json requests */
 
 const rooms = new Map();
 
@@ -24,8 +24,16 @@ app.get('/rooms', (req, res) => {
 });
 
 app.post('/rooms', (req, res) => {
-    console.log(req.body);
-    if (!rooms.has()) res.send();
+    const {roomID, username} = req.body;
+    if (!rooms.has(roomID)){
+       rooms.set(roomID, new Map([
+           ['users', new Map()],
+           ['messages', []],
+
+       ]));
+    }
+    res.send();
+    console.log(rooms);
 })
 
 io.on('connection', socket => { /* Connection testing */
